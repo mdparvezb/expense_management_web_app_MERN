@@ -16,11 +16,6 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Static file
-app.use(express.static(path.join(__dirname, "./client/build")));
-app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
 
 // Database call
 connectDB();
@@ -30,6 +25,12 @@ app.use("/api/v1/users", require("./routes/userRoute"));
 
 // Routes for transaction
 app.use("/api/v1/transactions", require("./routes/transactionRoute"));
+
+// Static file
+app.use(express.static(path.join(__dirname, "./client/build")));
+app.get("*", function (req, res) {
+  res.sendFile(path.join(__dirname, "./client/build/index.html"));
+});
 
 // Port intialization
 const PORT = process.env.PORT || 8080;
